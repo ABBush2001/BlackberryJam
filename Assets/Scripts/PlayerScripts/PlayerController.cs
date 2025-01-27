@@ -30,6 +30,16 @@ public class PlayerController : MonoBehaviour
     //check for player movement and update position accordingly
     private void Update()
     {
+        //check if sprinting
+        if(Input.GetKey(KeyCode.Space))
+        {
+            moveSpeed = 7;
+        }
+        else
+        {
+            moveSpeed = 3;
+        }
+
         //get input and convert to movement
         float horizontalMovement = Input.GetAxis("Horizontal") * moveSpeed;
         float verticalMovement = Input.GetAxis("Vertical") * moveSpeed;
