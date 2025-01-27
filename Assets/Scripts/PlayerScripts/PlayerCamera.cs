@@ -19,6 +19,12 @@ public class PlayerCamera : MonoBehaviour
     Vector2 rotation = Vector2.zero;
     public float speed = 5;
 
+    private void Awake()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     private void Update()
     {
         //update camera rotation based on mouse movement.
