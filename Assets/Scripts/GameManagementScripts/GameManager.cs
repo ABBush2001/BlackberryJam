@@ -60,10 +60,14 @@ public class GameManager : MonoBehaviour
         if(hasGun == false)
         {
             hasGun = true;
+            GameObject temp = GameObject.FindWithTag("Player").transform.GetChild(0).transform.GetChild(0).gameObject;
+            temp.SetActive(true);
         }
         else
         {
             hasGun = false;
+            GameObject temp = GameObject.FindWithTag("Player").transform.GetChild(0).transform.GetChild(0).gameObject;
+            temp.SetActive(false);
         }
     }
     public bool getGun()
