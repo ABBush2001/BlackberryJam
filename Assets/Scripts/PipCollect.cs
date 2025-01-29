@@ -15,6 +15,10 @@ public class Pip : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            //update game manager
+            GameObject temp = GameObject.FindWithTag("GameManager");
+            temp.GetComponent<GameManager>().setPips(temp.GetComponent<GameManager>().getPips() - 1);
+
             Destroy(this.gameObject);
         }
     }
