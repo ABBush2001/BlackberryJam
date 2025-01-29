@@ -12,11 +12,22 @@ using UnityEngine;
 */
 public class GunShoot : MonoBehaviour
 {
+    public int numBullets;
+    private GameObject temp;
+    public GameObject enemySpawner;
+
+    private void Awake()
+    {
+        numBullets = 3;
+        temp = GameObject.FindWithTag("GameManager");
+        enemySpawner = GameObject.Find("EnemyStart");
+    }
+
     // Update is called once per frame
     void Update()
     {
         //check if user shot
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(temp.GetComponent<GameManager>().getGun() && Input.GetKeyDown(KeyCode.Mouse0))
         {
             //create raycast hit
             Ray ray;
@@ -28,8 +39,18 @@ public class GunShoot : MonoBehaviour
             {
                 if (hit.collider.tag == "Enemy")
                 {
+                    enemySpawner.GetComponent<EnemySpawning>().numEnemies -= 1;
                     Destroy(hit.collider.gameObject);
                 }
+            }
+
+            //decrease bullet count
+            numBullets -= 1;
+
+            //check if out of bullets
+            if (numBullets == 0)
+            {
+                temp.GetComponent<GameManager>().setGun();
             }
         }
     }

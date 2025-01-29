@@ -83,5 +83,12 @@ public class GameManager : MonoBehaviour
             pips = 47;
             this.gameObject.GetComponent<SceneLoader>().reloadScene();
         }
+
+        //if player runs out of lives
+        if(lives == 0)
+        {
+            lives = 3;
+            this.gameObject.GetComponent<SceneLoader>().reloadScene();
+        }
     }
 }
