@@ -21,23 +21,31 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] Transform Cam;
 
+    [SerializeField] private bool isSprinting;
+
+    private GameObject gameManager;
+
     //initialize the value of the rigidbody
     private void Awake()
     {
+        gameManager = GameObject.FindWithTag("GameManager");
         rb = this.GetComponent<Rigidbody>();
+        isSprinting = false;
     }
 
     //check for player movement and update position accordingly
     private void Update()
     {
         //check if sprinting
-        if(Input.GetKey(KeyCode.Space))
+        if(Input.GetKey(KeyCode.Space) && gameManager.GetComponent<PlayerSprint>().sprintWait == false)
         {
             moveSpeed = 7;
+            isSprinting = true;
         }
         else
         {
             moveSpeed = 3;
+            isSprinting = false;
         }
 
         //get input and convert to movement
@@ -60,5 +68,10 @@ public class PlayerController : MonoBehaviour
 
         //update player velocity
         rb.velocity = new Vector3(moveDir.x, rb.velocity.y, moveDir.z);
+    }
+
+    public bool getSprint()
+    {
+        return isSprinting;
     }
 }
