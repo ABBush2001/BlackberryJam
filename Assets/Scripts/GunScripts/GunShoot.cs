@@ -15,6 +15,7 @@ public class GunShoot : MonoBehaviour
     public int numBullets;
     private GameObject temp;
     public GameObject enemySpawner;
+    public GameObject gunUI;
 
     private void Awake()
     {
@@ -46,11 +47,15 @@ public class GunShoot : MonoBehaviour
 
             //decrease bullet count
             numBullets -= 1;
+            gunUI = GameObject.FindWithTag("Gun");
+            Destroy(gunUI.transform.GetChild(0).GetChild(0).gameObject);
 
             //check if out of bullets
             if (numBullets == 0)
             {
                 temp.GetComponent<GameManager>().setGun();
+                gunUI = GameObject.Find("AmmoPanel");
+                gunUI.SetActive(false);
             }
         }
     }

@@ -8,6 +8,8 @@ using UnityEngine;
 */
 public class GunTrigger : MonoBehaviour
 {
+    public GameObject gunUI;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
@@ -15,6 +17,9 @@ public class GunTrigger : MonoBehaviour
             //update game manager
             GameObject temp = GameObject.FindWithTag("GameManager");
             temp.GetComponent<GameManager>().setGun();
+
+            //turn on UI
+            gunUI.SetActive(true);
 
             Destroy(this.gameObject);
         }

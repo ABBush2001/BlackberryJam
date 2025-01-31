@@ -81,6 +81,7 @@ public class GameManager : MonoBehaviour
         if (pips == 0)
         {
             pips = 47;
+            nextLevel();
             this.gameObject.GetComponent<SceneLoader>().reloadScene();
         }
 
