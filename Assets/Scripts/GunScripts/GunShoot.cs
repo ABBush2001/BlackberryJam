@@ -27,11 +27,7 @@ public class GunShoot : MonoBehaviour
 
         numBullets = temp.GetComponent<GameManager>().getAmmo();
 
-        //set number of bullets
-        for (int i = 0; i < temp.GetComponent<GameManager>().getAmmo(); i++)
-        {
-            Instantiate(bulletUI, gunUI.transform.GetChild(0).GetChild(0));
-        }
+        
     }
 
     // Update is called once per frame
@@ -58,19 +54,24 @@ public class GunShoot : MonoBehaviour
 
             //decrease bullet count
             gunUI = GameObject.FindWithTag("Gun");
-            gunUI.transform.GetChild(0).GetChild(numBullets-1).gameObject.SetActive(false);
+            Destroy(gunUI.transform.GetChild(0).GetChild(0).gameObject);
             numBullets -= 1;
             
 
             //check if out of bullets
             if (numBullets == 0)
             {
+                numBullets = temp.GetComponent<GameManager>().getAmmo();
+
                 temp.GetComponent<GameManager>().setGun();
 
                 gunUI = GameObject.FindWithTag("Gun");
-                gunUI.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
-                gunUI.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
-                gunUI.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+
+                for(int i = 0; i < temp.GetComponent<GameManager>().getAmmo(); i++)
+                {
+                    Instantiate(bulletUI, gunUI.transform.GetChild(0));
+                }
+
 
                 gunUI = GameObject.Find("AmmoPanel");
                 gunUI.SetActive(false);

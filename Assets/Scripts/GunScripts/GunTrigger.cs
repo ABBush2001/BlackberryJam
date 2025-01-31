@@ -10,13 +10,19 @@ public class GunTrigger : MonoBehaviour
 {
     public GameObject gunUI;
     public AudioSource gunPickup;
+    GameObject temp;
+
+    private void Awake()
+    {
+        temp = GameObject.FindWithTag("GameManager");
+        Debug.Log(temp.GetComponent<GameManager>().getAmmo());
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player" && temp.GetComponent<GameManager>().getGun() == false)
         {
             //update game manager
-            GameObject temp = GameObject.FindWithTag("GameManager");
             temp.GetComponent<GameManager>().setGun();
             gunPickup.Play();
 
@@ -26,4 +32,5 @@ public class GunTrigger : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
 }
