@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 /*
  * This script checks how long the player is sprinting for,
@@ -18,33 +20,38 @@ public class PlayerSprint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
         sprintWait = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.GetComponent<PlayerController>().getSprint() && sprintSlider.value > 0)
+        //check if in correct scene
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            sprintSlider.gameObject.SetActive(true);
-            sprintSlider.value -= 0.5f * Time.deltaTime;
-        }
-        else if (sprintSlider.value <= 0)
-        {
-            if(sprintWait != true)
+            
+
+            if (player.GetComponent<PlayerController>().getSprint() && sprintSlider.value > 0)
             {
-                sprintWait = true;
+                sprintSlider.gameObject.SetActive(true);
+                sprintSlider.value -= 0.5f * Time.deltaTime;
+            }
+            else if (sprintSlider.value <= 0)
+            {
+                if (sprintWait != true)
+                {
+                    sprintWait = true;
+                    StartCoroutine(reloadSprint());
+                }
+            }
+            else if (sprintSlider.value < 1 && sprintWait == false)
+            {
                 StartCoroutine(reloadSprint());
             }
-        }
-        else if(sprintSlider.value < 1 && sprintWait == false)
-        {
-            StartCoroutine(reloadSprint());
-        }
-        else if(sprintSlider.value == 1 && sprintWait == false)
-        {
-            sprintSlider.gameObject.SetActive(false);
+            else if (sprintSlider.value == 1 && sprintWait == false)
+            {
+                sprintSlider.gameObject.SetActive(false);
+            }
         }
 
     }

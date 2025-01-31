@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
 {
     //variables
     [SerializeField] private int level = 1;
-    [SerializeField] private int pips = 47;
+    [SerializeField] private int pips = 77;
     [SerializeField] private int lives = 3;
     [SerializeField] private float score = 0;
     [SerializeField] private int ammo = 3;
@@ -102,16 +102,16 @@ public class GameManager : MonoBehaviour
         //if all pips are collected
         if (pips == 0)
         {
-            pips = 47;
+            pips = 77;
             nextLevel();
-            this.gameObject.GetComponent<SceneLoader>().reloadScene();
+            this.gameObject.GetComponent<SceneLoader>().loadWinScene();
         }
 
         //if player runs out of lives
         if(lives == 0)
         {
             lives = 3;
-            this.gameObject.GetComponent<SceneLoader>().reloadScene();
+            this.gameObject.GetComponent<SceneLoader>().loadLoseScene();
         }
     }
 }

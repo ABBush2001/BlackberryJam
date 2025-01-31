@@ -20,4 +20,17 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
+
+    public void loadMainScene()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void loadLoseScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetSceneByName("Game_Over").buildIndex);
+    }
+    public void loadWinScene()
+    {
+        SceneManager.LoadScene(2);
+    }
 }

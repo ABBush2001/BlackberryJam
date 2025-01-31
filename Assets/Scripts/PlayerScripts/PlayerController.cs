@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         //check if sprinting
-        if(Input.GetKey(KeyCode.Space) && gameManager.GetComponent<PlayerSprint>().sprintWait == false)
+        if(Input.GetKey(KeyCode.Space) && this.GetComponent<PlayerSprint>().sprintWait == false)
         {
             moveSpeed = 7;
             isSprinting = true;
