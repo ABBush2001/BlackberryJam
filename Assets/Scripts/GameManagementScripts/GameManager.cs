@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int level = 1;
     [SerializeField] private int pips = 47;
     [SerializeField] private int lives = 3;
+    [SerializeField] private float score = 0;
+    [SerializeField] private int ammo = 3;
     [SerializeField] private bool hasGun = false;
 
     //instance of game manager for persistence
@@ -22,6 +24,26 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         DontDestroyOnLoad(gameObject);
+    }
+
+    //ammo
+    public void setAmmo(int a)
+    {
+        ammo = a;
+    }
+    public int getAmmo()
+    {
+        return ammo;
+    }
+
+    //score
+    public void setScore(float a)
+    {
+        score = a;
+    }
+    public float getScore()
+    {
+        return score;
     }
 
     //level

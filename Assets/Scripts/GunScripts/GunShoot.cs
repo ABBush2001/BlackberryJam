@@ -16,12 +16,22 @@ public class GunShoot : MonoBehaviour
     private GameObject temp;
     public GameObject enemySpawner;
     public GameObject gunUI;
+    public AudioSource audioSource;
+    public GameObject bulletUI;
 
     private void Awake()
     {
-        numBullets = 3;
         temp = GameObject.FindWithTag("GameManager");
         enemySpawner = GameObject.Find("EnemyStart");
+        audioSource = GameObject.Find("GunShot").GetComponent<AudioSource>();
+
+        numBullets = temp.GetComponent<GameManager>().getAmmo();
+
+        //set number of bullets
+        for (int i = 0; i < temp.GetComponent<GameManager>().getAmmo(); i++)
+        {
+            Instantiate(bulletUI, gunUI.transform.GetChild(0).GetChild(0));
+        }
     }
 
     // Update is called once per frame
@@ -34,6 +44,7 @@ public class GunShoot : MonoBehaviour
             Ray ray;
             RaycastHit hit;
             ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            audioSource.Play();
 
             //check if raycast hit an enemy
             if(Physics.Raycast(ray, out hit))
@@ -46,14 +57,21 @@ public class GunShoot : MonoBehaviour
             }
 
             //decrease bullet count
-            numBullets -= 1;
             gunUI = GameObject.FindWithTag("Gun");
-            Destroy(gunUI.transform.GetChild(0).GetChild(0).gameObject);
+            gunUI.transform.GetChild(0).GetChild(numBullets-1).gameObject.SetActive(false);
+            numBullets -= 1;
+            
 
             //check if out of bullets
             if (numBullets == 0)
             {
                 temp.GetComponent<GameManager>().setGun();
+
+                gunUI = GameObject.FindWithTag("Gun");
+                gunUI.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
+                gunUI.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
+                gunUI.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+
                 gunUI = GameObject.Find("AmmoPanel");
                 gunUI.SetActive(false);
             }
